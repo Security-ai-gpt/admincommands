@@ -1462,7 +1462,7 @@ addCommand("btools", function()
 	end)
 end, {}, 3)
 
-addCommand("gun", function()
+addCommand("givegun", function()
 	sgui:SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, true)
 	if not character then return end
 	local humanoid = character:FindFirstChildOfClass("Humanoid")
@@ -1529,7 +1529,7 @@ addCommand("gun", function()
 	end)
 end, {}, 3)
 
-addCommand("punch", function()
+addCommand("givepunchtool", function()
 	sgui:SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, true)
 	if not character then return end
 	local humanoid = character:FindFirstChildOfClass("Humanoid")
@@ -1578,7 +1578,7 @@ addCommand("punch", function()
 end, {"slap"}, 3)
 
 
-addCommand("katana", function()
+addCommand("givekatana", function()
 	sgui:SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, true)
 	if not character then return end
 	local humanoid = character:FindFirstChildOfClass("Humanoid")
