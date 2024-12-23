@@ -1949,6 +1949,30 @@ addCommand("bighats", function(plrs)
 	end
 end, {"rescalehats", "gianthats"}, 1)
 
+addCommand("amongus", function(plrs)
+	for i,v in pairs(plrs) do
+		local char = v.Character
+		if not char then continue end
+		local humanoid = char:FindFirstChildOfClass("Humanoid")
+		if not (humanoid and humanoid.RigType == Enum.HumanoidRigType.R6) then continue end
+		local head = char:FindFirstChild("Head")
+		if not head then continue end
+		local mesh = head:FindFirstChildOfClass("SpecialMesh")
+		if not mesh then continue end
+		delete(mesh)
+	end
+end, {"demeshhead"}, 1)
+
+for i,v in pairs(plrs) do
+		local char = v.Character
+		if char == nil then continue end
+		for _,instance in pairs(char:GetChildren()) do
+			if not instance.Name:lower():find("arm") then continue end
+			delete(instance)
+		end
+	end
+end, {}, 1)
+
 addCommand("rescale", function(plrs)
 	for i,v in pairs(plrs) do
 		local char = v.Character
