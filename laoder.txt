@@ -1,5 +1,4 @@
---{ QuirkyCMD made by quirky anime boy (smokedoutlocedout on discord) }--
--- ty Destiny for adding more exec support <3
+
 local cloneref = cloneref or function(a) return a end
 local coreGui = cloneref(game:GetService("CoreGui"))
 local players = cloneref(game:GetService("Players"))
@@ -1462,7 +1461,7 @@ addCommand("btools", function()
 	end)
 end, {}, 3)
 
-addCommand("givegun", function()
+addCommand("gun", function()
 	sgui:SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, true)
 	if not character then return end
 	local humanoid = character:FindFirstChildOfClass("Humanoid")
@@ -1529,7 +1528,7 @@ addCommand("givegun", function()
 	end)
 end, {}, 3)
 
-addCommand("givepunchtool", function()
+addCommand("punch", function()
 	sgui:SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, true)
 	if not character then return end
 	local humanoid = character:FindFirstChildOfClass("Humanoid")
@@ -1568,55 +1567,6 @@ addCommand("givepunchtool", function()
 	end)
 
 	punchTool.Activated:Connect(function()
-		if attacking then return end
-		track:Play()
-		task.wait(isR15 and 0.2 or 0.165)
-		attacking = true
-		track.Ended:Wait()
-		attacking = false
-	end)
-end, {"slap"}, 3)
-
-
-addCommand("givekatana", function()
-	sgui:SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, true)
-	if not character then return end
-	local humanoid = character:FindFirstChildOfClass("Humanoid")
-	if not humanoid then return end
-	local isR15 = humanoid.RigType == Enum.HumanoidRigType.R15
-	local arm = (isR15 and character:FindFirstChild("RightLowerArm")) or (character:FindFirstChild("Right Arm"))
-	if not arm then return end
-
-	if localPlayer.Backpack:FindFirstChild("wacky katana tool") or (character:FindFirstChild("wacky katana tool")) then
-		return
-	end
-
-	local katanaTool = Instance.new("Tool", localPlayer.Backpack)
-	katanaTool.RequiresHandle = false
-	katanaTool.CanBeDropped = false
-	katanaTool.Name = "wacky katana tool"
-	katanaTool.ToolTip = "Click to katana"
-	katanaTool.TextureId = "rbxassetid://4984935545"
-
-	local animation = Instance.new("Animation")
-	animation.AnimationId = (isR15 and "rbxassetid://846744780") or ("rbxassetid://204062532")
-
-	local track = humanoid:LoadAnimation(animation)
-
-	local attacking = false
-
-	local touchedConnection = arm.Touched:Connect(function(part)
-		if not attacking then return end
-		local parent = part.Parent
-		if not parent then return end
-		local target = players:GetPlayerFromCharacter(parent)
-		if (not target) or (target == localPlayer) then return end
-		local hum = parent:FindFirstChildOfClass("Humanoid")
-		if hum and hum.Health <= 0 then return end
-		runCommand("kill",{target})
-	end)
-
-	katanaTool.Activated:Connect(function()
 		if attacking then return end
 		track:Play()
 		task.wait(isR15 and 0.2 or 0.165)
@@ -1814,6 +1764,16 @@ addCommand("noarms", function(plrs)
 	end
 end, {}, 1)
 
+addCommand("unhair", function(targetPlayers, rawInput, caller)
+    print(targetPlayers)
+    for i,v in pairs(targetPlayers) do -- loop target players
+        print(v)
+        for i,v in pairs (v.Character:WaitForChild("Hair"):GetChildren()) do
+            delete(v)
+        end
+    end 
+end, {"test"}, 3)
+
 addCommand("nolegs", function(plrs)
 	for i,v in pairs(plrs) do
 		local char = v.Character
@@ -1948,30 +1908,6 @@ addCommand("bighats", function(plrs)
 		end)
 	end
 end, {"rescalehats", "gianthats"}, 1)
-
-addCommand("amongus", function(plrs)
-	for i,v in pairs(plrs) do
-		local char = v.Character
-		if not char then continue end
-		local humanoid = char:FindFirstChildOfClass("Humanoid")
-		if not (humanoid and humanoid.RigType == Enum.HumanoidRigType.R6) then continue end
-		local head = char:FindFirstChild("Head")
-		if not head then continue end
-		local mesh = head:FindFirstChildOfClass("SpecialMesh")
-		if not mesh then continue end
-		delete(mesh)
-	end
-end, {"demeshhead"}, 1)
-
-for i,v in pairs(plrs) do
-		local char = v.Character
-		if char == nil then continue end
-		for _,instance in pairs(char:GetChildren()) do
-			if not instance.Name:lower():find("arm") then continue end
-			delete(instance)
-		end
-	end
-end, {}, 1)
 
 addCommand("rescale", function(plrs)
 	for i,v in pairs(plrs) do
